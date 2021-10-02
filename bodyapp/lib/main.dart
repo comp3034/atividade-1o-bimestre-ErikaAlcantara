@@ -6,7 +6,9 @@ import 'package:pixel_perfect/pixel_perfect.dart';
 import 'dieta/dieta.dart';
 import 'login/login.dart';
 import 'medidas/medidas.dart';
+import 'register/register.dart';
 // import 'home/home.dart';
+
 
 void main() {
   runApp(MyApp());
