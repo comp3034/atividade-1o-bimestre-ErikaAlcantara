@@ -1,5 +1,5 @@
-import 'dart:math';
-
+import 'dart:math' as math;
+import 'package:bodyapp/shared/colors.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 
@@ -51,30 +51,61 @@ class MedidasScreen extends StatelessWidget {
               ),
             ),
             Positioned(
-              right: 45,
+              right: 28,
               bottom: 350,
-              child: Row(
+              child: Column(
                 children: [
-                  MeasureLabelWidget(
-                    label: '  Gordura',
-                    value: '170',
-                  ),
+                  SizedBox(
+                    width: 90,
+                    height: 95,
+                    child: CustomPaint(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 14, right: 8, top: 16),
+                        child: MeasureLabelWidget(
+                        label: '  Gordura',
+                        value: '170',
+                        ),
+                      ),
+                      painter: GradientArcPainter(
+                      progress: 0.7,
+                      startColor: Colors.green,
+                      middleColor: Colors.red,
+                      endColor: Colors.blue,
+                      width: 6.0
+                      ),
+                    ),
+                  ),  
                 ],
               ),
             ),
             Positioned(
-              right: 55,
-              bottom: 250,
-              child: Row(
+              right: 28,
+              bottom: 230,
+              child: Column(
                 children: [
-                  MeasureLabelWidget(
-                    label: '  IMC',
-                    value: '22',
-                  ),
+                  SizedBox(
+                    width: 90,
+                    height: 95,
+                    child: CustomPaint(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 25, right: 8, top: 16),
+                        child: MeasureLabelWidget(
+                        label: '  IMC',
+                        value: '22',
+                        ),
+                      ),
+                      painter: GradientArcPainter(
+                      progress: 0.7,
+                      startColor: Colors.green,
+                      middleColor: Colors.red,
+                      endColor: Colors.blue,
+                      width: 6.0
+                      ),
+                    ),
+                  ),  
                 ],
               ),
             ),
-            
             NestedMeasureWidget(
               top: 127,
               left: 0,
@@ -93,14 +124,14 @@ class MedidasScreen extends StatelessWidget {
             ),
             NestedMeasureWidget(
               top: 207,
-              left: 40,
-              width: width * .3,
+              left: 35,
+              width: width * .32,
               label: 'Biceps',
               value: '95',
               measure: ' cm',
             ),
             NestedMeasureWidget(
-              top: 267,
+              top: 252,
               left: 0,
               width: width * .6,
               label: 'Cintura',
@@ -108,7 +139,7 @@ class MedidasScreen extends StatelessWidget {
               measure: ' cm',
             ),
             NestedMeasureWidget(
-              top: 307,
+              top: 297,
               left: 0,
               width: width * .4,
               label: 'Quadril',
@@ -124,7 +155,7 @@ class MedidasScreen extends StatelessWidget {
               measure: ' cm',
             ),
             NestedMeasureWidget(
-              top: 490,
+              top: 460,
               left: 0,
               width: width * .4,
               label: 'Panturrilha',
@@ -141,7 +172,6 @@ class MedidasScreen extends StatelessWidget {
     );
   }
 }
-
 class NestedMeasureWidget extends StatelessWidget {
   NestedMeasureWidget({
     Key? key,
@@ -230,4 +260,51 @@ class MeasureLabelWidget extends StatelessWidget {
       ],
     );
   }
+}
+class GradientArcPainter extends CustomPainter {
+  const GradientArcPainter({
+    required this.progress,
+    required this.startColor,
+    required this.middleColor,
+    required this.endColor,
+    required this.width,
+  })  : assert(progress != null),
+        assert(progress != null),
+        assert(startColor != null),
+        assert(middleColor != null),
+        assert(endColor != null),
+        assert(width != null),
+        super();
+
+  final double progress;
+  final Color startColor;
+  final Color middleColor;
+  final Color endColor;
+  final double width;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final rect = new Rect.fromLTWH(.0, 0.0, size.width, size.height);
+    final gradient = new SweepGradient(
+      startAngle: 3 * math.pi / 2,
+      endAngle: 7 * math.pi / 2,
+      tileMode: TileMode.repeated,
+      colors: [startColor, middleColor, endColor],
+    );
+
+    final paint = new Paint()
+      ..shader = gradient.createShader(rect)
+      ..strokeCap = StrokeCap.butt  // StrokeCap.round is not recommended.
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = width;
+    final center = new Offset(size.width / 2, size.height / 2);
+    final radius = math.min(size.width / 2, size.height / 2) - (width / 2);
+    final startAngle = math.pi;
+    final sweepAngle = 2 * math.pi * progress;
+    canvas.drawArc(new Rect.fromCircle(center: center, radius: radius),
+        startAngle, sweepAngle, false, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }

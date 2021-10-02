@@ -9,7 +9,7 @@ import 'medidas/medidas.dart';
 import 'register/register.dart';
 // import 'home/home.dart';
 
-
+//Based on Pixel4 mobile
 void main() {
   runApp(MyApp());
 }
