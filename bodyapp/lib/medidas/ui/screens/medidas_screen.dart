@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 
@@ -48,19 +50,84 @@ class MedidasScreen extends StatelessWidget {
                 ],
               ),
             ),
+            Positioned(
+              right: 45,
+              bottom: 350,
+              child: Row(
+                children: [
+                  MeasureLabelWidget(
+                    label: '  Gordura',
+                    value: '170',
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              right: 55,
+              bottom: 250,
+              child: Row(
+                children: [
+                  MeasureLabelWidget(
+                    label: '  IMC',
+                    value: '22',
+                  ),
+                ],
+              ),
+            ),
+            
             NestedMeasureWidget(
-              top: 188,
+              top: 127,
               left: 0,
-              width: width * .5,
+              width: width * .4,
               label: 'Pescoço',
               value: '95',
               measure: ' cm',
             ),
             NestedMeasureWidget(
-              top: 188 + 48,
+              top: 167,
               left: 0,
               width: width * .6,
               label: 'Peito',
+              value: '95',
+              measure: ' cm',
+            ),
+            NestedMeasureWidget(
+              top: 207,
+              left: 40,
+              width: width * .3,
+              label: 'Biceps',
+              value: '95',
+              measure: ' cm',
+            ),
+            NestedMeasureWidget(
+              top: 267,
+              left: 0,
+              width: width * .6,
+              label: 'Cintura',
+              value: '95',
+              measure: ' cm',
+            ),
+            NestedMeasureWidget(
+              top: 307,
+              left: 0,
+              width: width * .4,
+              label: 'Quadril',
+              value: '95',
+              measure: ' cm',
+            ),
+            NestedMeasureWidget(
+              top: 367,
+              left: 0,
+              width: width * .6,
+              label: 'Coxa',
+              value: '95',
+              measure: ' cm',
+            ),
+            NestedMeasureWidget(
+              top: 490,
+              left: 0,
+              width: width * .4,
+              label: 'Panturrilha',
               value: '95',
               measure: ' cm',
             ),
@@ -147,12 +214,14 @@ class MeasureLabelWidget extends StatelessWidget {
             text: '$value',
             style: TextStyle(
               fontSize: 36,
+              color: Colors.black
             ),
             children: [
               TextSpan(
                 text: ' $measure',
                 style: TextStyle(
                   fontSize: 12,
+                  color: Colors.black
                 ),
               ),
             ],
