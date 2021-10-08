@@ -6,8 +6,10 @@ import 'package:pixel_perfect/pixel_perfect.dart';
 import 'dieta/dieta.dart';
 import 'login/login.dart';
 import 'medidas/medidas.dart';
+import 'register/register.dart';
 // import 'home/home.dart';
 
+//Based on Pixel4 mobile
 void main() {
   runApp(MyApp());
 }
