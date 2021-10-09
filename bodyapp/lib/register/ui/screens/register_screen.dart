@@ -108,7 +108,9 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
   RegExp _upper = RegExp(r'[A-Z]');
   RegExp _lower = RegExp(r'[a-z]');
   RegExp _numeric = RegExp(r'[0-9]');
+  bool isConfirmPasswordObscured = true;
   bool isPasswordObscured = true;
+  String _password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -142,11 +144,13 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
               hintText: 'Senha',
               prefixIcon: Icons.lock,
               sufixIcon:
-                  isPasswordObscured ? Icons.visibility_off : Icons.visibility,
-              obscureText: isPasswordObscured,
+                  isConfirmPasswordObscured 
+                  ? Icons.visibility_off 
+                  : Icons.visibility,
+              obscureText: isConfirmPasswordObscured,
               suffixIconOnPressed: () {
                 setState(() {
-                  isPasswordObscured = !isPasswordObscured;
+                  isConfirmPasswordObscured = !isConfirmPasswordObscured;
                 });
               },
               validator: (value) {
@@ -161,8 +165,12 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                 }
                 if (value != null && !value.contains(_numeric)) {
                   return 'A senha deve conter pelo menos um caractere numerico.';
-                }
-                return null;
+                } 
+              },
+              onChanged: (value) { 
+                setState(() {
+                  _password = value;
+                });
               },
             ),
           ),
@@ -192,6 +200,9 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                 if (value != null && !value.contains(_numeric)) {
                   return 'A senha deve conter pelo menos um caractere numerico.';
                 }
+                if (value != _password){
+                  return 'As senhas devem coincidir';
+                }   
                 return null;
               },
             ),
